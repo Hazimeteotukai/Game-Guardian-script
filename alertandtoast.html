@@ -21,7 +21,7 @@
     <input type="radio" id="toast" name="notification" value="toast">
     <label for="toast">Toast</label><br>
     <button onclick="addText()">Add Text</button><br>
-    <h2>Generated Lua Code:</h2>
+    <h2 id="generatedCodeTitle" style="display: none;">Generated Lua Code:</h2>
     <pre id="generatedCode"></pre>
     <script>
         function numberLines() {
@@ -29,7 +29,7 @@
             var lines = luaCode.value.split("\n");
             var numberedLines = "";
             for (var i = 0; i < lines.length; i++) {
-                numberedLines += lines[i] + "\n";
+                numberedLines += (i + 1) + ": " + lines[i] + "\n";
             }
             luaCode.value = numberedLines.trim();
         }
@@ -72,6 +72,7 @@
 
             // Display generated Lua code
             document.getElementById("generatedCode").textContent = updatedLuaCode;
+            document.getElementById("generatedCodeTitle").style.display = "block";
         }
     </script>
 </body>
