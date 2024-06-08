@@ -70,9 +70,10 @@
                 alert("Toast notification: " + updatedLuaCode);
             }
 
-            // Display generated Lua code
+            // Display generated Lua code without line numbers
             document.getElementById("generatedCode").textContent = updatedLuaCode;
             document.getElementById("generatedCodeTitle").style.display = "block";
+            document.getElementById("luaCode").value = "";
         }
     </script>
 </body>
