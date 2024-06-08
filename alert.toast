@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Text to Lua Code</title>
+</head>
+<body>
+    <h1>Add Text to Lua Code</h1>
+    <label for="luaCode">Lua Code:</label><br>
+    <textarea id="luaCode" rows="10" cols="50"></textarea><br>
+    <label for="startLine">Start Line Number:</label>
+    <input type="number" id="startLine" min="1"><br>
+    <label for="endLine">End Line Number:</label>
+    <input type="number" id="endLine" min="1"><br>
+    <label for="addedText">Text to Add:</label>
+    <input type="text" id="addedText"><br>
+    <button onclick="addText()">Add Text</button>
+    <script>
+        function addText() {
+            var luaCode = document.getElementById("luaCode").value;
+            var startLine = parseInt(document.getElementById("startLine").value);
+            var endLine = parseInt(document.getElementById("endLine").value);
+            var addedText = document.getElementById("addedText").value;
+
+            // Check if startLine and endLine are valid
+            if (isNaN(startLine) || isNaN(endLine) || startLine < 1 || endLine < 1 || startLine > endLine) {
+                alert("Invalid line numbers. Please enter valid line numbers.");
+                return;
+            }
+
+            // Split Lua code into lines
+            var lines = luaCode.split("\n");
+
+            // Add text between startLine and endLine
+            for (var i = startLine - 1; i < endLine; i++) {
+                lines[i] += addedText;
+            }
+
+            // Join lines back into Lua code
+            var updatedLuaCode = lines.join("\n");
+
+            // Update textarea with updated Lua code
+            document.getElementById("luaCode").value = updatedLuaCode;
+        }
+    </script>
+</body>
+</html>
