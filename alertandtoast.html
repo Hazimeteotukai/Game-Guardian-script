@@ -20,14 +20,16 @@
     <label for="alert">Alert</label><br>
     <input type="radio" id="toast" name="notification" value="toast">
     <label for="toast">Toast</label><br>
-    <button onclick="addText()">Add Text</button>
+    <button onclick="addText()">Add Text</button><br>
+    <h2>Generated Lua Code:</h2>
+    <pre id="generatedCode"></pre>
     <script>
         function numberLines() {
             var luaCode = document.getElementById("luaCode");
             var lines = luaCode.value.split("\n");
             var numberedLines = "";
             for (var i = 0; i < lines.length; i++) {
-                numberedLines += (i + 1) + ": " + lines[i] + "\n";
+                numberedLines += lines[i] + "\n";
             }
             luaCode.value = numberedLines.trim();
         }
@@ -67,6 +69,9 @@
                 // Replace this with the code for your toast library
                 alert("Toast notification: " + updatedLuaCode);
             }
+
+            // Display generated Lua code
+            document.getElementById("generatedCode").textContent = updatedLuaCode;
         }
     </script>
 </body>
