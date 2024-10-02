@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lua Script Encryptor</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <h1>Lua Script Encryptor</h1>
+
+    <!-- ファイルアップロード -->
+    <input type="file" id="fileInput" accept=".lua" />
+    <br><br>
+
+    <!-- パスワード入力 -->
+    <label for="password">Encryption Key:</label>
+    <input type="password" id="password" />
+    <br><br>
+
+    <!-- 暗号化ボタン -->
+    <button onclick="encryptFile()">Encrypt</button>
+    <br><br>
+
+    <!-- 暗号化されたファイルをダウンロード -->
+    <a id="downloadLink" style="display:none;">Download Encrypted File</a>
+
+    <script>
+        function encryptFile() {
+            const fileInput = document.getElementById('fileInput');
+            const password = document.getElementById('password').value;
+
+            if (fileInput.files.length === 0 || password === '') {
+                alert("Please select a file and enter a password.");
+                return;
+            }
+
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(event) {
+                const luaContent = event.target.result;
+                const encrypted = CryptoJS.AES.encrypt(luaContent, password).toString();
+                const blob = new Blob([encrypted], { type: "text/plain" });
+                const url = URL.createObjectURL(blob);
+
+                const downloadLink = document.getElementById('downloadLink');
+                downloadLink.href = url;
+                downloadLink.download = file.name.replace('.lua', '_encrypted.lua');
+                downloadLink.style.display = 'block';
+                downloadLink.textContent = "Download Encrypted File";
+            };
+
+            reader.readAsText(file);
+        }
+    </script>
+</body>
+</html>
